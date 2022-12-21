@@ -25,6 +25,7 @@ class Client(object):
     __register_path__ = "register"
     __register_search_path__ = "register/search"
 
+
     def __init__(self, key, secret, accept_type="xml", middlewares=None):
         self.accept_type = "application/{0}".format(accept_type)
         self.middlewares = middlewares
@@ -72,6 +73,7 @@ class Client(object):
             )
         )
 
+
     def published_data(
         self, reference_type, input, endpoint="biblio", constituents=None
     ):
@@ -109,10 +111,10 @@ class Client(object):
             )
         )
 
-    def register_search(self, cql, range_begin=1, range_end=25):
+    def register_search(self, cql, range_begin=1, range_end=25, constituents=[]):
         range = dict(key="Range", begin=range_begin, end=range_end)
         return self._search_request(
-            {"service": self.__register_search_path__}, cql, range
+            {"service": self.__register_search_path__, "constituents": constituents}, cql, range
         )
 
     @property
